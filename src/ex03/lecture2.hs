@@ -1,0 +1,15 @@
+-- defining functions, part 2
+-- Lambda x -> x + x
+-- \x -> x + x
+-- expression of Function type. expressions that denote functions.
+-- anonymous functions, eg. for map
+--
+-- Sections
+-- 1+2
+-- 3
+--
+-- (+) 1 2
+--
+-- (1+) 2
+-- (+2) 3
+--
