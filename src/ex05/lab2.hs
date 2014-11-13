@@ -18,7 +18,7 @@ toDigits num
 -- ===================================
 
 toDigitsRev :: Integer -> [Integer]
-toDigitsRev = undefined
+toDigitsRev num = reverse (toDigits num)
 
 -- ===================================
 -- Ex. 2
