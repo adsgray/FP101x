@@ -9,7 +9,9 @@ module Lab2 where
 -- ===================================
 
 toDigits :: Integer -> [Integer]
-toDigits = undefined
+toDigits num
+    | num < 10 = [num]
+    | otherwise = (toDigits (num `div` 10)) ++ [num `mod` 10]
 
 -- ===================================
 -- Ex. 1
