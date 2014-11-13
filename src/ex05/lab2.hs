@@ -35,7 +35,10 @@ doubleSecond (x:y:xs) = x: 2*y :doubleSecond xs
 -- ===================================
 
 sumDigits :: [Integer] -> Integer
-sumDigits = undefined
+sumDigits [] = 0
+sumDigits (x:xs)
+    | x > 9 = (sumDigits(toDigits x)) + sumDigits xs
+    | otherwise = x + sumDigits xs
 
 
 -- ===================================
@@ -43,7 +46,7 @@ sumDigits = undefined
 -- ===================================
 
 isValid :: Integer -> Bool
-isValid = undefined
+isValid num = sumDigits(doubleSecond(toDigitsRev(num))) `mod` 10 == 0
 
 
 -- ===================================
