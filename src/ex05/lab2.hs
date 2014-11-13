@@ -24,8 +24,11 @@ toDigitsRev num = reverse (toDigits num)
 -- Ex. 2
 -- ===================================
 
+-- the hilarious ease of declarative functional programming:
 doubleSecond :: [Integer] -> [Integer]
-doubleSecond = undefined
+doubleSecond [] = []
+doubleSecond [x] = [x]
+doubleSecond (x:y:xs) = x: 2*y :doubleSecond xs
 
 -- ===================================
 -- Ex. 3
