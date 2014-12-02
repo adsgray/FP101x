@@ -13,7 +13,11 @@ The monad of parsers
 >
 > instance Monad Parser where
 >    return v                   =  P (\inp -> [(v,inp)])
->    p >>= f                    =  error "You must implement (>>=)"
+>    p >>= f                    =  P (\inp ->
+>                                   case parse p inp of
+>                                   [] -> []
+>                                   [(v,out)] -> parse (f v) out)
+
 > 
 > instance MonadPlus Parser where
 >    mzero                      =  P (\inp -> [])
@@ -90,14 +94,25 @@ Derived primitives
 >                                     return (read xs)
 >
 > int                           :: Parser Int
-> int                           =  error "You must implement int"
+> int                           = (do char '-'
+>                                     n <- nat
+>                                     return (-n))
+>                                   +++ nat
+
+ int                           =  error "You must implement int"
+
 > 
 > space                         :: Parser ()
 > space                         =  do many (sat isSpace)
 >                                     return ()
 >
 > comment                       :: Parser ()
-> comment                       = error "You must implement comment"
+> comment                       = do string "--"
+>                                    many (sat (/= '\n'))
+>                                    return ()
+
+ comment                       = error "You must implement comment"
+
 >
 > expr                          :: Parser Int
 > expr                          = error "You must implement expr"
