@@ -115,7 +115,16 @@ Derived primitives
 
 >
 > expr                          :: Parser Int
-> expr                          = error "You must implement expr"
+> expr
+>   = do n <- natural
+>        ns <- many
+>                (do symbol "-"
+>                    natural)
+>        return (foldl (-) n ns)
+
+
+
+ expr                          = error "You must implement expr"
 
 Ignoring spacing
 ----------------
