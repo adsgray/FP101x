@@ -54,5 +54,8 @@ euclid (x, y) =
 -- Ex. 3
 -- ===================================
 
+-- so declarative!!1
 funkyMap :: (a -> b) -> (a -> b) -> [a] -> [b]
-funkyMap f g xs = undefined
+funkyMap f g [] = []
+funkyMap f g [a] = [f a]
+funkyMap f g (a:b:xs) = (f a):(g b):funkyMap f g xs
