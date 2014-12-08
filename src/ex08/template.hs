@@ -42,7 +42,13 @@ poem = [ "Three Types for the Lisp-kings under the parentheses,"
 -- ===================================
 
 euclid :: (Int,  Int) -> Int
-euclid (x, y) = undefined
+euclid (x, y) = 
+    if x == y
+        then x
+    else
+        if x > y
+            then euclid (x - y, y)
+            else euclid (x, y - x)
 
 -- ===================================
 -- Ex. 3
