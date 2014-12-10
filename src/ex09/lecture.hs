@@ -66,3 +66,76 @@ area (Rect x y) = x * y
 
 -- data declarations can also have parameters
 data Maybe a = Nothing | Just a
+
+
+-- 2. Recursive types
+-- cannot do with type synonyms
+-- require a nominal type
+
+data Nat = Zero | Succ Nat
+
+nti :: Nat -> Int
+nti Zero = 0
+nti (Succ n)  = 1 + nti n
+
+itn :: Int -> Nat
+itn 0 = Zero
+itn n = Succ (itn (n - 1))
+
+-- gross, converting:
+add :: Nat -> Nat -> Nat
+add m n = itn (nt1 m + nti n)
+
+-- Erik likes this one better:
+add' Zero n = n
+add' (Succ m) n = Succ (add m n)
+
+--eg:
+-- add (Succ (Succ Zero)) (Succ Zero)
+
+
+
+-- 3. Type classes
+data Expr = Val Int
+          | Add Expr Expr
+          | Mul Expr Expr
+
+
+size :: Expr -> Int
+size (Val n) = 1
+size (Add x y) = size x + size y
+size (Mul x y) = size x + size y
+
+eval :: Expr -> Int
+eval (Val n) = n
+eval (Add x) = eval x + eval y
+eval (Mul x y) = eval x * eval y
+
+-- foldr
+
+
+-- binary trees
+-- values in the nodes and in the trees
+
+data Tree = Leaf Int
+          | Node Tree Int Tree
+
+occurs :: Int -> Tree -> Bool
+occurs m (Leaf n) = m==n
+occurs m (Node l n r) = m == n
+                      || occurs m l
+                      || occurs m r
+                      
+flatten :: Tree -> [Int]
+flatten (Leaf n) = [n]
+flatten (Node l n r) = flatten l ++ [n] ++ flatten r
+
+
+-- it's a search tree if it flattens to a sorted list
+-- can improve occurs:
+
+occurs' :: Int -> Tree -> Bool
+occurs' m (Leaf n) = m==n
+occurs' m (Node l n r) | m == n = True
+                       | m<n = occurs' m l
+                       | m>n = occurs' m r
