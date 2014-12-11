@@ -71,6 +71,14 @@ choices xs = [zs | ys <- perms xs, zs <- subs ys]
 
 
 
+> isChoice :: Eq a => [a] -> [a] -> Bool
+> isChoice [] _ = True
+> isChoice (x:xs) [] = False
+> isChoice (x:xs) ys = elem x ys && isChoice xs (removeone x ys)
+
+
+
+
 Formalising the problem
 -----------------------
 
