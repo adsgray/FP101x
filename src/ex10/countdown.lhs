@@ -38,6 +38,9 @@ Expressions
 Combinatorial functions
 -----------------------
 
+subs is all subsets
+perms is permutations
+
 > subs                          :: [a] -> [[a]]
 > subs []                       =  [[]]
 > subs (x:xs)                   =  yss ++ map (x:) yss
@@ -52,7 +55,12 @@ Combinatorial functions
 > perms (x:xs)                  =  concat (map (interleave x) (perms xs))
 >
 > choices                       :: [a] -> [[a]]
-> choices                       =  undefined
+> choices xs = [zs | ys <- subs xs, zs <- perms ys]
+
+choices xs = [ys ++ zs | ys <- subs xs, zs <- perms xs]
+choices xs = concat [zs | ys <- subs xs, zs <- perms ys]
+choices xs = [zs | ys <- subs xs, zs <- perms ys]
+choices xs = [zs | ys <- perms xs, zs <- subs ys]
 
 Formalising the problem
 -----------------------
