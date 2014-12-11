@@ -62,6 +62,15 @@ choices xs = concat [zs | ys <- subs xs, zs <- perms ys]
 choices xs = [zs | ys <- subs xs, zs <- perms ys]
 choices xs = [zs | ys <- perms xs, zs <- subs ys]
 
+
+> removeone :: Eq a => a -> [a] -> [a]
+> removeone x [] = []
+> removeone x (y:ys)
+>    | x == y = ys
+>    | otherwise = y : removeone x ys
+
+
+
 Formalising the problem
 -----------------------
 
